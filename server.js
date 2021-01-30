@@ -63,4 +63,4 @@ app.get('/plants', plantsController.index  );
 
 app.get('/plants/:id', plantsController.show );
 
-app.post('/plants/:id/data', plantsController.createData );how to 
+app.post('/plants/:id/data', plantsController.createData );
