@@ -33,14 +33,14 @@ module.exports = {
 
 
     console.log('POST plant data', req.params);
-    console.log('formdata', req.body);
+    // console.log('res.data', res)
+    console.log('formdata', req.data);
 
-    const FAKE_USER_ID = 19;
 
     // const f = await Flight.find({ criteria });
     // f.update( { fields } )
     const newData = {
-      moisture: 32,
+      moisture: 33,
       temperature: 26,
       watered: 1
     }
@@ -59,7 +59,7 @@ module.exports = {
 
       // send the new reservation object back to the frontend,
       // so the seating diagram updates automatically
-      res.json( newData );
+      res.json( res.data );
 
     } catch( err ){
       console.log('ERROR saving data', err);

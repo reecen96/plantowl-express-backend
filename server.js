@@ -1,8 +1,11 @@
 // Main express server file
 
 const express = require('express');
+var cors = require('cors')
 const app = express();
-const PORT = 3000;
+app.use(cors())
+const dotenv = require('dotenv').config();
+const PORT = process.env.PORT || 3000;
 
 const plantsController = require('./controllers/plantsController');
 const mongoose = require('mongoose');
@@ -11,7 +14,7 @@ const mongoose = require('mongoose');
 const Plant = require('./models/Plant');
 
 // Connect to the DB
-mongoose.connect('mongodb://localhost/plantowl', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 
