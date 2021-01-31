@@ -26,3 +26,4 @@ const PlantSchema = new mongoose.Schema({
 // In order to require() this model in other JS code, we have to
 // export it here
 module.exports = mongoose.model('Plant', PlantSchema);
+// Update and send to herku
