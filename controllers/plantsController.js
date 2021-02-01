@@ -33,6 +33,7 @@ module.exports = {
 
 
     console.log('POST plant data', req.params);
+    console.log('POST plant request data', request.params);
     // console.log('res.data', res)
     console.log('formdata', req.data);
 
