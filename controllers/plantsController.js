@@ -34,7 +34,7 @@ module.exports = {
 
     console.log('POST plant data', req.params);
     // console.log('res.data', res)
-    console.log('formdata', req.data);
+    console.log('formdata', req.body);
 
 
     // const f = await Flight.find({ criteria });

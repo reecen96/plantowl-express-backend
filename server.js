@@ -15,6 +15,7 @@ const mongoose = require('mongoose');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
+app.use(express.json())
 
 // Load our model file
 const Plant = require('./models/Plant');
