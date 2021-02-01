@@ -11,8 +11,10 @@ const PORT = process.env.PORT || 3000;
 const plantsController = require('./controllers/plantsController');
 const mongoose = require('mongoose');
 
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 // Load our model file
 const Plant = require('./models/Plant');
