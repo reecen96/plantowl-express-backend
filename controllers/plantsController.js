@@ -35,14 +35,17 @@ module.exports = {
     console.log('POST plant data', req.params);
     // console.log('res.data', res)
     console.log('formdata', req.body);
+    console.log('moisture:', parseInt(req.body.moisture));
+    console.log('temperature:', parseInt(req.body.temperature));
+    console.log('watered:', parseInt(req.body.watered));
 
 
     // const f = await Flight.find({ criteria });
     // f.update( { fields } )
     const newData = {
-      moisture: 33,
-      temperature: 26,
-      watered: 1
+      moisture: parseInt(req.body.moisture),
+      temperature: parseInt(req.body.temperature),
+      watered: parseInt(req.body.watered)
     }
 
     try {
