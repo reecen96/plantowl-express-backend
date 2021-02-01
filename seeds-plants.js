@@ -28,11 +28,8 @@ const insertPlants = () => {
   db.collection('plants').insertMany( [
     {
       plant_name: 'Fern',
-      plant_date: new Date('2021-10-01T04:20:00Z'),
+      createdAt: Date.now, // automatically fill out createdAt field
       data: [
-        { moisture: 70, temperature: 24, watered: 0, data_date: new Date('2021-10-0104:30:00Z')},
-        { moisture: 68, temperature: 21, watered: 0, data_date: new Date('2021-11-0104:30:00Z')},
-        { moisture: 67, temperature: 20, watered: 1, data_date: new Date('2021-12-0104:30:00Z')},
       ] // reservations
     }, // first plant
   ],

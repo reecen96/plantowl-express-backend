@@ -8,6 +8,7 @@ app.use(cors())
 const dotenv = require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 
+
 const plantsController = require('./controllers/plantsController');
 const mongoose = require('mongoose');
 
