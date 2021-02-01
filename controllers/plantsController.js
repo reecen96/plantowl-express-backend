@@ -36,7 +36,7 @@ module.exports = {
     // console.log('res.data', res)
     console.log('formdata', req.body);
     console.log('moisture:', parseInt(req.body.moisture));
-    console.log('temperature:', parseInt(req.body.temperature));
+    console.log('temperature:', parseInt(req.body.temprature));
     console.log('watered:', parseInt(req.body.watered));
 
 
@@ -44,7 +44,7 @@ module.exports = {
     // f.update( { fields } )
     const newData = {
       moisture: parseInt(req.body.moisture),
-      temperature: parseInt(req.body.temperature),
+      temperature: parseInt(req.body.temprature),
       watered: parseInt(req.body.watered)
     }
 
