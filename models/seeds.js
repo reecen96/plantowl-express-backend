@@ -13,22 +13,10 @@ const plants = [
   plant_name: 'Fern',
   plant_date: new Date('2021-10-01T04:20:00Z'),
   data: [
-    { moisture: 70, temperature: 24, watered: 0, data_date: new Date('2021-10-0104:30:00Z')},
-    { moisture: 68, temperature: 21, watered: 0, data_date: new Date('2021-11-0104:30:00Z')},
-    { moisture: 67, temperature: 20, watered: 1, data_date: new Date('2021-12-0104:30:00Z')},
-    { moisture: 87, temperature: 19, watered: 1, data_date: new Date('2021-13-0104:30:00Z')},
+    {}
   ] // reservations
-}, // first plant
-{
-  plant_name: 'Aloe Vera',
-  plant_date: new Date('2021-11-01T04:20:00Z'),
-  data: [
-    { moisture: 60, temperature: 24, watered: 1, data_date: new Date('2021-09-0104:30:00Z')},
-    { moisture: 58, temperature: 21, watered: 0, data_date: new Date('2021-10-0104:30:00Z')},
-    { moisture: 57, temperature: 14, watered: 1, data_date: new Date('2021-11-0104:30:00Z')},
-    { moisture: 79, temperature: 23, watered: 0, data_date: new Date('2021-12-0104:30:00Z')},
-  ] // reservations
-}, // second plant
+} // first plant
+
 ]
 
 

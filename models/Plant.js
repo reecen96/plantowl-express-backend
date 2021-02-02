@@ -17,6 +17,7 @@ const PlantSchema = new mongoose.Schema({
       moisture: Number,
       temperature: Number,
       watered: Number,
+      waterLevel: Number,
       createdAt: {
         type: Date,
         default: Date.now // automatically fill out createdAt field
