@@ -44,6 +44,11 @@ const User = require('./User');
 //
 // }); // once connection is established
 
+Plant.deleteMany();
+Plant.create( plants );
+const plantResults =  Plant.find();
+console.log('plants', plantResults);
+
 
 const createPlants = async () => {
   try {
