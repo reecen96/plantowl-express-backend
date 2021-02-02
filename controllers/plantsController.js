@@ -22,6 +22,7 @@ module.exports = {
     res.header('Access-Control-Allow-Origin', "*")
 
 
+
     const plant = await Plant.findOne({ _id: req.params.id});
     res.json( plant );
 
@@ -38,6 +39,7 @@ module.exports = {
     console.log('moisture:', parseInt(req.body.moisture));
     console.log('temperature:', parseInt(req.body.temprature));
     console.log('watered:', parseInt(req.body.watered));
+    console.log('waterLevel:', parseInt(req.body.waterLevel));
 
 
     // const f = await Flight.find({ criteria });
@@ -45,7 +47,8 @@ module.exports = {
     const newData = {
       moisture: parseInt(req.body.moisture),
       temperature: parseInt(req.body.temprature),
-      watered: parseInt(req.body.watered)
+      watered: parseInt(req.body.watered),
+      waterLevel: parseInt(req.body.waterLevel)
     }
 
     try {

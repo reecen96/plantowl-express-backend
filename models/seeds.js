@@ -1,4 +1,13 @@
 
+const bcrypt = require('bcrypt')
+const users = [
+  {
+  name: 'Test User 1',
+  email: 'one@one.com',
+  passwordDigest: bcrypt.hashSync('chicken', 10)
+  }
+]
+
 const plants = [
 {
   plant_name: 'Fern',
@@ -25,9 +34,9 @@ const plants = [
 
 // const mongoose = require('mongoose');
 //
-// // Load our model file
-// const Plant = require('./Plant');
-//
+// Load our model file
+const Plant = require('./Plant');
+const User = require('./User');
 // // Connect to the DB
 // mongoose.connect('mongodb://localhost/plantowl', { useNewUrlParser: true, useUnifiedTopology: true });
 //
@@ -39,12 +48,19 @@ const plants = [
 //
 // // Once the connection is established, we can start querying/seeding
 // db.once('open', async () => {
+// once('open', async() => {
+//
+//  const plantsCreated = await createPlants();
+//    console.log ('Plants done, created', plantsCreated.length)
+//   process.exit(0); // quit program
+//
+// }); // once connection is established
 
 
-
+const createPlants = async () => {
   try {
 
-      // 1. Empty the flights collection (table), just like Rails Flight.destroy_all
+      // 1. Empty the plant collection (table), just like Rails Flight.destroy_all
       await Plant.deleteMany();
 
       // 2. Insert the new flights
@@ -52,9 +68,15 @@ const plants = [
 
       const plantResults = await Plant.find();
       console.log('plants', plantResults);
+
+      return plantResults; // this will be the resolved promise value of this async function
+
     } catch(err){
       console.log('Error finding plants:', err);
     }
-  process.exit(0); // quit program
 
-}); // once connection is established
+    console.log ('Done')
+    process.exit(0); // quit program
+
+
+}//create plants

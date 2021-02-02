@@ -28,7 +28,8 @@ const insertPlants = () => {
   db.collection('plants').insertMany( [
     {
       plant_name: 'Fern',
-      createdAt: Date.now, // automatically fill out createdAt field
+      createdAt: Date.now // automatically fill out createdAt field
+
       data: [
       ] // reservations
     }, // first plant

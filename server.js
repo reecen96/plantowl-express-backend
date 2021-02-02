@@ -1,15 +1,20 @@
 // Main express server file
-
 const express = require('express');
-var cors = require('cors')
-var bodyParser = require('body-parser');
 const app = express();
+//cors
+var cors = require('cors')
 app.use(cors())
+//JSON parser
+var bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
+//declairing port
 const PORT = process.env.PORT || 3000;
-
-
+//socket.io
+const http = require("http");
+const socketIo = require("socket.io");
+//importing plantscontroller
 const plantsController = require('./controllers/plantsController');
+//requiring mongoose
 const mongoose = require('mongoose');
 
 
@@ -23,8 +28,12 @@ const Plant = require('./models/Plant');
 
 // Connect to the DB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
 const db = mongoose.connection;
+
+
+//------------------socket.io-----------------//
+const server = http.createServer(db);
+const io = socketIo(db);
 
 db.on('error', (err) => {
   console.log('Connection error', err);
@@ -41,35 +50,30 @@ db.once('open', async () => {
 
 }); //db.once open
 
+let interval;
 
-// app.get('/plants', async (req, res) => {
-//
-//   // Plant.find()
-//   // .then( (plants) => {
-//   //   res.json( plants );//send the result of the query
-//   // })
-//   // .catch( console.warn )
-//   // res.json( {message: 'hello' } );
-//   try{
-//   const plants = await Plant.find();
-//   res.json( plants );
-// } catch(err){
-//   console.log('ERROR querying DB for plants', err)
-//   res.sendStatus( 500 )
-// }
-// }); //GET /flights
+io.on("connection", (socket) => {
+  console.log("New client connected");
+  if (interval) {
+    clearInterval(interval);
+  }
+  interval = setInterval(() => getApiAndEmit(socket), 1000);
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+    clearInterval(interval);
+  });
+});
+
+const getApiAndEmit = socket => {
+  const response = new Date();
+  // Emitting a new message. Will be consumed by the client
+  socket.emit("FromAPI", response);
+};
 
 
 
-//
-// const server = app.listen(PORT, () => {
-//   console.log(`BA server listening on http://localhost:${PORT} ...`);
-// });
-//
-//
-// // Now this server.js looks a lot like a Rails routes.rb file!
-//
 
+//-----------controller routes--------//
 app.get('/plants', plantsController.index  );
 
 app.get('/plants/:id', plantsController.show );
