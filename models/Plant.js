@@ -6,18 +6,17 @@ const PlantSchema = new mongoose.Schema({
   // eventually returned by the API match the Rails fields.
   // In pure MongoDB you would use camelCase, i.e. plantNumber
   plant_name: String,
-  plant_date: Date,
-  user: {
-    type: mongoose.Schema.Types.ObjectID,
-    ref: 'User' //this creates an association to the user model
+  createdAt: {
+    type: Date,
+    default: Date.now // automatically fill out createdAt field
   },
   // a plant can have many nested datas
   data: [
     {
-      moisture: Number,
-      temperature: Number,
-      watered: Number,
-      waterLevel: Number,
+      moisture: Number, //soil moisture %
+      temperature: Number,// temperature c
+      watered: Number, // did water (y/n) - 1 or o
+      waterLevel: Number, // L
       createdAt: {
         type: Date,
         default: Date.now // automatically fill out createdAt field

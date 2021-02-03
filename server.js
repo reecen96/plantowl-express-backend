@@ -16,16 +16,36 @@ const socketIo = require("socket.io");
 const plantsController = require('./controllers/plantsController');
 //requiring mongoose
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken'); // to send back a signed token to the frontend as proof of login
+const jwtAuthenticate = require('express-jwt');
 
+
+
+// // Create a handler function that we give to any route that is protected,
+// // i.e. a route that you must be logged-in to se
+const checkAuth = () => {
+  return jwtAuthenticate({
+    secret: SERVER_SECRET_KEY, // use the same secret key to check the token hasn't been tampered with,
+    algorithms: ['HS256']
+  });
+}; // checkAuth
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(express.json())
 
+
+
+const bcrypt = require('bcrypt'); // to encrypt & compare passwords
+const SERVER_SECRET_KEY = 'yourSecretKey'
+
 // Load our model file
 const Plant = require('./models/Plant');
+const User = require('./models/User');
 
+
+console.log(process.env.MONGO_URI)
 // Connect to the DB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -76,6 +96,33 @@ const getApiAndEmit = socket => {
 //-----------controller routes--------//
 app.get('/plants', plantsController.index  );
 
-app.get('/plants/:id', plantsController.show );
+app.get('/plants/:id', checkAuth(),plantsController.show );
 
 app.post('/plants/:id/data', plantsController.createData );
+
+app.post('/register', plantsController.createUser );
+
+app.post('/login', plantsController.login );
+
+
+
+// // Example of a protected route that requires an authentication token
+app.get('/profile', checkAuth(),  (req, res) => {
+  // checkAuth provides req.user when the token is valid
+  console.log('Profile access allowed for authenticated user', req.user);
+  res.json( req.user );
+});
+//
+//Authentication error
+app.use( (err, req, res, next) => {
+  if( err.name === 'UnauthorizedError' ){
+    console.log('Unauthorised request', req.path);
+    res.status(401).json({ error: 'Invalid token' });
+  } else {
+    res.json(404); // generic "not found" response
+  }
+});
+
+
+
+// curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDE5ZjNmYWY2YmRkZTJhNGRiNzY2MTMiLCJuYW1lIjoiVGVzdCBVc2VyIDEiLCJlbWFpbCI6Im9uZUBvbmUuY29tIiwiaWF0IjoxNjEyMzE1MzA3LCJleHAiOjE2MTI1NzQ1MDd9.OUkKT1ylp6IWin0VrLO0qWXw0EGTP_8obDJPRPPK0xY' http:/localhost:3000/plants/6019fd51ca3eb52c7acd71ed
